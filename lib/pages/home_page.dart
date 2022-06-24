@@ -13,14 +13,14 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   final List<Note> notes = [
-    Note(
-        title: "Notes App will be my first production app ever🎉!",
-        noteText: "What'll be next🤔?"),
-    Note(
-        title: "Life setup🗄.",
-        noteText: "It's important to keep your life together by documenting "
-            "everything you have, not for memories but rather to schedule "
-            "your days by the hour if possible!"),
+    // Note(
+    //     title: "Notes App will be my first production app ever🎉!",
+    //     noteText: "What'll be next🤔?"),
+    // Note(
+    //     title: "Life setup🗄.",
+    //     noteText: "It's important to keep your life together by documenting "
+    //         "everything you have, not for memories but rather to schedule "
+    //         "your days by the hour if possible!"),
   ];
   void _addNewNote(String title, String noteText) {
     final newNote = Note(title: title, noteText: noteText);
@@ -66,43 +66,67 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 600,
-              child: ListView.builder(
-                itemBuilder: ((context, index) => Padding(
-                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                      child: Card(
-                        color: const Color(0xff252525),
+            notes.isEmpty
+                ? Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 115, 0, 0),
+                    child: Center(
                         child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(15, 15, 15, 0),
-                              child: Text(
-                                "title: ",
-                                style: GoogleFonts.nunito(
-                                    textStyle: const TextStyle(
-                                        fontSize: 18,
-                                        color: Color(0xFFBFBDBD))),
+                      children: [
+                        SvgPicture.asset(
+                          'assets/svg/undraw_reminder_re_wxwu (1).svg',
+                          height: 300,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
+                          child: Text(
+                            'Create your first note!',
+                            style: GoogleFonts.nunito(
+                                textStyle: const TextStyle(fontSize: 20),
+                                color: Colors.white),
+                          ),
+                        )
+                      ],
+                    )),
+                  )
+                : SizedBox(
+                    height: 600,
+                    child: ListView.builder(
+                      itemBuilder: ((context, index) => Padding(
+                            padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                            child: Card(
+                              color: const Color(0xff252525),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        15, 15, 15, 0),
+                                    child: Text(
+                                      "title: ",
+                                      style: GoogleFonts.nunito(
+                                          textStyle: const TextStyle(
+                                              fontSize: 18,
+                                              color: Color(0xFFBFBDBD))),
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.fromLTRB(
+                                        15, 0, 15, 15),
+                                    child: Text(
+                                      notes[index].title,
+                                      style: GoogleFonts.nunito(
+                                        textStyle: const TextStyle(
+                                            color: Colors.white, fontSize: 25),
+                                      ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.fromLTRB(15, 0, 15, 15),
-                              child: Text(
-                                notes[index].title,
-                                style: GoogleFonts.nunito(
-                                  textStyle: const TextStyle(
-                                      color: Colors.white, fontSize: 25),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    )),
-                itemCount: notes.length,
-              ),
-            ),
+                          )),
+                      itemCount: notes.length,
+                    ),
+                  ),
           ],
         ),
       ),
