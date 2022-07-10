@@ -1,6 +1,6 @@
 class Note {
   final String title;
-  final String? noteText;
+  final String noteText;
 
   Note({
     required this.title,

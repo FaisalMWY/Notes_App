@@ -44,27 +44,37 @@ class NoteCreation extends StatelessWidget {
                 ],
               ),
             ),
-            TextField(
-              controller: titleController,
-              style: GoogleFonts.nunito(
-                  textStyle: const TextStyle(fontSize: 48, color: Colors.grey)),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Title',
-                hintStyle: GoogleFonts.nunito(
-                  textStyle: const TextStyle(fontSize: 48, color: Colors.grey),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * .9,
+              child: TextField(
+                controller: titleController,
+                style: GoogleFonts.nunito(
+                    textStyle:
+                        const TextStyle(fontSize: 48, color: Colors.grey)),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Title',
+                  hintStyle: GoogleFonts.nunito(
+                    textStyle:
+                        const TextStyle(fontSize: 38, color: Colors.grey),
+                  ),
                 ),
               ),
             ),
-            TextField(
-              controller: noteTextController,
-              style: GoogleFonts.nunito(
-                  textStyle: const TextStyle(fontSize: 23, color: Colors.grey)),
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                hintText: 'Type something...',
-                hintStyle: GoogleFonts.nunito(
-                  textStyle: const TextStyle(fontSize: 23, color: Colors.grey),
+            SizedBox(
+              width: MediaQuery.of(context).size.width * .9,
+              child: TextField(
+                controller: noteTextController,
+                style: GoogleFonts.nunito(
+                    textStyle:
+                        const TextStyle(fontSize: 23, color: Colors.grey)),
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  hintText: 'Type something...',
+                  hintStyle: GoogleFonts.nunito(
+                    textStyle:
+                        const TextStyle(fontSize: 23, color: Colors.grey),
+                  ),
                 ),
               ),
             ),
