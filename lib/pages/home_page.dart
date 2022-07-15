@@ -1,9 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:notesapp/models/note.dart';
 import 'package:notesapp/pages/note_creation.dart';
 import 'package:notesapp/pages/note_page.dart';
+import 'package:notesapp/pages/notes_list.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -32,132 +34,122 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _deleteNote(String title) {
+    setState(() {
+      notes.removeWhere((element) => element.title == title);
+    });
+  }
+
+  Widget deletedItemBackground() => Container(
+        alignment: Alignment.centerRight,
+        padding: const EdgeInsets.only(right: 20),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15), color: Colors.red),
+        child: const Icon(
+          Icons.delete,
+          color: Colors.white,
+        ),
+      );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
-        child: Column(
-          children: [
-            Center(
-              child: SizedBox(
-                height: (MediaQuery.of(context).size.height -
-                        MediaQuery.of(context).padding.top) *
-                    .1,
-                width: (MediaQuery.of(context).size.height -
-                        MediaQuery.of(context).padding.top) *
-                    .48,
-                child: Row(
-                  children: [
-                    Text(
-                      'Notes',
-                      style: GoogleFonts.nunito(
-                          textStyle: const TextStyle(fontSize: 40),
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600),
-                    ),
-                    const Spacer(),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        width: 50,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: const Color(0xff252525)),
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.info_outline),
-                          color: Colors.white,
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Center(
+                child: SizedBox(
+                  height: (MediaQuery.of(context).size.height -
+                          MediaQuery.of(context).padding.top) *
+                      .1,
+                  width: (MediaQuery.of(context).size.height -
+                          MediaQuery.of(context).padding.top) *
+                      .48,
+                  child: Row(
+                    children: [
+                      Text(
+                        'Notes',
+                        style: GoogleFonts.nunito(
+                            textStyle: const TextStyle(fontSize: 40),
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      const Spacer(),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Container(
+                          width: 50,
+                          height: 50,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: const Color(0xff252525)),
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: const Icon(Icons.info_outline),
+                            color: Colors.white,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-            notes.isEmpty
-                ? Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 115, 0, 0),
-                    child: Center(
-                        child: Column(
-                      children: [
-                        SvgPicture.asset(
-                          'assets/svg/undraw_reminder_re_wxwu (1).svg',
-                          height: 300,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
-                          child: Text(
-                            'Create your first note!',
-                            style: GoogleFonts.nunito(
-                                textStyle: const TextStyle(fontSize: 20),
-                                color: Colors.white),
+              notes.isEmpty
+                  ? Padding(
+                      padding: const EdgeInsets.fromLTRB(0, 115, 0, 0),
+                      child: Center(
+                          child: Column(
+                        children: [
+                          SvgPicture.asset(
+                            'assets/svg/undraw_reminder_re_wxwu (1).svg',
+                            height: 300,
                           ),
-                        )
-                      ],
-                    )),
-                  )
-                : Center(
-                    child: SizedBox(
-                      height: (MediaQuery.of(context).size.height -
-                              MediaQuery.of(context).padding.top) *
-                          .9,
-                      width: (MediaQuery.of(context).size.height -
-                              MediaQuery.of(context).padding.top) *
-                          .9,
-                      child: ListView.builder(
-                        itemBuilder: ((context, index) => GestureDetector(
-                              onTap: (() => Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => NotePage(
-                                          notes[index].title,
-                                          notes[index].noteText),
-                                    ),
-                                  )),
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                                child: Card(
-                                  color: const Color(0xff252525),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            15, 15, 15, 0),
-                                        child: Text(
-                                          "title: ",
-                                          style: GoogleFonts.nunito(
-                                              textStyle: const TextStyle(
-                                                  fontSize: 18,
-                                                  color: Color(0xFFBFBDBD))),
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.fromLTRB(
-                                            15, 0, 15, 15),
-                                        child: Text(
-                                          notes[index].title,
-                                          style: GoogleFonts.nunito(
-                                            textStyle: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 25),
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            )),
-                        itemCount: notes.length,
-                      ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
+                            child: Text(
+                              'Create your first note!',
+                              style: GoogleFonts.nunito(
+                                  textStyle: const TextStyle(fontSize: 20),
+                                  color: Colors.white),
+                            ),
+                          )
+                        ],
+                      )),
+                    )
+                  : Center(
+                      child: SizedBox(
+                          height: (MediaQuery.of(context).size.height -
+                                  MediaQuery.of(context).padding.top) *
+                              .9,
+                          width: (MediaQuery.of(context).size.height -
+                                  MediaQuery.of(context).padding.top) *
+                              .9,
+                          child: ReorderableListView(
+                            dragStartBehavior: DragStartBehavior.start,
+                            onReorder: (oldIndex, newIndex) => setState(() {
+                              if (newIndex > oldIndex) {
+                                newIndex -= 1;
+                              }
+
+                              final note = notes.removeAt(oldIndex);
+                              notes.insert(newIndex, note);
+                            }),
+                            children: notes
+                                .map((e) => Dismissible(
+                                      key: UniqueKey(),
+                                      onDismissed: (direction) {
+                                        _deleteNote(e.title);
+                                      },
+                                      background: deletedItemBackground(),
+                                      child: NotesList(note: e),
+                                    ))
+                                .toList(),
+                          )),
                     ),
-                  ),
-          ],
+            ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -176,25 +168,3 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
-
-// Padding(
-//   padding: const EdgeInsets.fromLTRB(0, 115, 0, 0),
-//   child: Center(
-//       child: Column(
-//     children: [
-//       SvgPicture.asset(
-//         'assets/svg/undraw_reminder_re_wxwu (1).svg',
-//         height: 300,
-//       ),
-//       Padding(
-//         padding: const EdgeInsets.fromLTRB(0, 6, 0, 0),
-//         child: Text(
-//           'Create your first note!',
-//           style: GoogleFonts.nunito(
-//               textStyle: const TextStyle(fontSize: 20),
-//               color: Colors.white),
-//         ),
-//       )
-//     ],
-//   )),
-// ),

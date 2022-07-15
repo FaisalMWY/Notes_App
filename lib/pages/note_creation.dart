@@ -1,16 +1,30 @@
+// ignore_for_file: use_key_in_widget_constructors
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class NoteCreation extends StatelessWidget {
+class NoteCreation extends StatefulWidget {
   final Function noteSubmission;
   final List notes;
 
-  NoteCreation(this.notes, this.noteSubmission);
+  const NoteCreation(this.notes, this.noteSubmission);
 
+  @override
+  State<NoteCreation> createState() => _NoteCreationState();
+}
+
+class _NoteCreationState extends State<NoteCreation> {
   @override
   Widget build(BuildContext context) {
     final titleController = TextEditingController();
     final noteTextController = TextEditingController();
+    @override
+    void initState() {
+      final titleController = TextEditingController();
+      final noteTextController = TextEditingController();
+      super.initState();
+    }
+
     return Scaffold(
       backgroundColor: const Color(0xff121212),
       body: SafeArea(
@@ -32,7 +46,7 @@ class NoteCreation extends StatelessWidget {
                   const Spacer(),
                   IconButton(
                     onPressed: () {
-                      noteSubmission(
+                      widget.noteSubmission(
                           titleController.text, noteTextController.text);
                       Navigator.pop(context);
                     },
@@ -45,7 +59,6 @@ class NoteCreation extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * .9,
               child: TextField(
                 controller: titleController,
                 style: GoogleFonts.nunito(
@@ -62,7 +75,6 @@ class NoteCreation extends StatelessWidget {
               ),
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width * .9,
               child: TextField(
                 controller: noteTextController,
                 style: GoogleFonts.nunito(

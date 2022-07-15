@@ -1,13 +1,12 @@
-// ignore_for_file: use_key_in_widget_constructors
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class NotePage extends StatelessWidget {
   final String title;
   final String noteText;
-  // ignore: prefer_const_constructors_in_immutables
-  NotePage(this.title, this.noteText);
+  const NotePage(this.title, this.noteText);
 
   @override
   Widget build(BuildContext context) {
@@ -20,29 +19,26 @@ class NotePage extends StatelessWidget {
               height: (MediaQuery.of(context).size.height -
                       MediaQuery.of(context).padding.top) *
                   .1,
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  children: [
-                    IconButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      icon: const Icon(
-                        Icons.arrow_back_ios,
-                        color: Color(0xffFFA500),
-                      ),
+              child: Row(
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Color(0xffFFA500),
                     ),
-                    const Spacer(),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.mode_edit,
-                        color: Color(0xffFFA500),
-                      ),
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(
+                      Icons.mode_edit,
+                      color: Color(0xffFFA500),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
             Padding(
